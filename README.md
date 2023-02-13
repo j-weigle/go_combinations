@@ -32,9 +32,8 @@ is the array \[1\] and position 3 is the array \[1, 2\]_
 Providing an array with non-unique items, it will give you more than you want.
 
 This package could have been made more robust to prevent duplication, but
-that would reduce it less performant. If you require a crate that
-handles cases of non-unique arrays, please see:
-<https://crates.io/crates/combinations>
+that would reduce it less performant. If you require a package that
+handles cases of non-unique arrays, please look elsewhere
 
 ### Example:
 
