@@ -6,8 +6,7 @@ import (
 )
 
 func TestGetSubset(t *testing.T) {
-	myRange := getRange(1, 3)
-	result := GetSubset(&myRange, 3)
+	result := GetSubset(ptr(getRange(1, 3)), 3)
 	want := []int{1, 2}
 	if !reflect.DeepEqual(result, want) {
 		t.Errorf("error: \nreturn:\t%v\nwant:\t%v", result, []int{1, 2})
@@ -49,8 +48,7 @@ func TestAll(t *testing.T) {
 }
 
 func TestAllQualifying(t *testing.T) {
-	myRange := getRange(1, 3)
-	result := AllQualifying(&myRange, func(v *[]int) bool {
+	result := AllQualifying(ptr(getRange(1, 3)), func(v *[]int) bool {
 		sum := 0
 		for i := 0; i < len(*v); i++ {
 			sum += (*v)[i]
@@ -64,8 +62,7 @@ func TestAllQualifying(t *testing.T) {
 }
 
 func TestAllQualifyingPositions(t *testing.T) {
-	myRange := getRange(1, 3)
-	result := AllQualifyingPositions(&myRange, func(v *[]int) bool {
+	result := AllQualifyingPositions(ptr(getRange(1, 3)), func(v *[]int) bool {
 		sum := 0
 		for i := 0; i < len(*v); i++ {
 			sum += (*v)[i]
@@ -78,8 +75,7 @@ func TestAllQualifyingPositions(t *testing.T) {
 }
 
 func TestCombinations(t *testing.T) {
-	myRange := getRange(1, 3)
-	result := Combinations(&myRange, 2)
+	result := Combinations(ptr(getRange(1, 3)), 2)
 	want := [][]int{{1, 2}, {1, 3}, {2, 3}}
 	if !reflect.DeepEqual(result, want) {
 		t.Errorf("error: \nreturn:\t%v\nwant:\t%v", result, want)
@@ -87,16 +83,14 @@ func TestCombinations(t *testing.T) {
 }
 
 func TestCombinationPositions(t *testing.T) {
-	myRange := getRange(1, 20)
-	result := CombinationsPositions(&myRange, 10)
+	result := CombinationsPositions(ptr(getRange(1, 20)), 10)
 	if len(result) != 184756 {
 		t.Errorf("error: \nreturn:\t%v\nwant:\t%v", len(result), 185756)
 	}
 }
 
 func TestCombinationsQualifyingPositions(t *testing.T) {
-	myRange := getRange(1, 3)
-	result := CombinationsQualifyingPositions(&myRange, 2, func(v *[]int) bool {
+	result := CombinationsQualifyingPositions(ptr(getRange(1, 3)), 2, func(v *[]int) bool {
 		sum := 0
 		for i := 0; i < len(*v); i++ {
 			sum += (*v)[i]
@@ -114,4 +108,8 @@ func getRange(min, max int) []int {
 		a[i] = min + i
 	}
 	return a
+}
+
+func ptr[T any](v T) *T {
+	return &v
 }
